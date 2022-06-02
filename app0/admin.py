@@ -14,24 +14,28 @@ class EmployeeAdmin(admin.ModelAdmin):
     list_display = ('job', 'first_name', 'last_name')
 admin.site.register(Employee, EmployeeAdmin)
 
+class SpeciesAdmin(admin.ModelAdmin):
+    list_display = ('species', 'breed')
+admin.site.register(Species, SpeciesAdmin)
+
 class PetAdmin(admin.ModelAdmin):
     list_display = ('name', 'nickname', 'owner', 'species')
 admin.site.register(Pet, PetAdmin)
 
 class ReserveAdmin(admin.ModelAdmin):
-    list_display = ('reserve_datetime', 'purpose', 'hospital', 'pet')
+    list_display = ('hospital', 'reserve_datetime', 'purpose', 'species')
 admin.site.register(Reserve, ReserveAdmin)
 
 class ContractAdmin(admin.ModelAdmin):
     list_display = ( 'employee', 'sign_date', 'hospital', 'end_date')
 admin.site.register(Contract, ContractAdmin)
 
-class ScheduleTimeAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'start_work', 'get_off')
-admin.site.register(ScheduleTime, ScheduleTimeAdmin)
+# class ScheduleTimeAdmin(admin.ModelAdmin):
+#     list_display = ('pk', 'start_work', 'get_off')
+# admin.site.register(ScheduleTime, ScheduleTimeAdmin)
 
 class ScheduleAdmin(admin.ModelAdmin):
-    list_display = ('work_date', 'employee', 'schedule_time')
+    list_display = ('work_date', 'employee', 'start_work', 'get_off')
 admin.site.register(Schedule, ScheduleAdmin)
 
 class MedicalItemAdmin(admin.ModelAdmin):

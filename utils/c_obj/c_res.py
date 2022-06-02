@@ -6,7 +6,7 @@ from faker import Faker
 from app0.models import *
 
 faker = Faker('zh-TW')
-print("產生 預約")
+print("產生 預約 戰不可用")
 
 #檢查寵物
 pets = Pet.objects.all()

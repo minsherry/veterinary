@@ -16,3 +16,5 @@ admin.site.register(M0)
 admin.site.register(M1)
 
 admin.site.register(M2)
+
+admin.site.register(M3)

@@ -27,29 +27,23 @@ from .serializers import *
 
 
 class Test0View(APIView):
-    def get(self,request):     
-        '''
-        自動產生變數去新增顧客
-        '''   
-        faker = Faker('zh-TW')
-        
-        for i in range(11):
-            ph_no=[]
-            ph_no.append(0)
-            ph_no.append(9)
-            for i in range(8):
-                ph_no.append(random.randint(0,9))
-            ph = ''.join(str(e) for e in ph_no)
-
-            Customer.objects.create(
-                first_name = faker.first_name(),
-                last_name = faker.last_name(),
-                birth_date = datetime.strptime(faker.date(), "%Y-%m-%d"),
-                phone = ph,
-                email = faker.ascii_free_email(),
-                address = faker.address()
-            )
-        return Response('over')
+    def get(self,request):
+        dic = {
+            'a':'a',
+            'b':2,
+            'c':[
+                {
+                    'd':'d',
+                    'e':'e'
+                },
+                {
+                    'd':'d2',
+                    'e':'e2'
+                }
+            ]
+        }
+        print(type(dic['c']))
+        return Response(dic)
 
     def post(self, request):
         data = request.data
@@ -104,7 +98,7 @@ def test1(request):
 
     
 class Test2View(APIView):
-    def get(self,request):     
+    def get(self,request):
         '''
         自動產生變數去新增顧客
         '''   
@@ -163,3 +157,8 @@ class Test2View(APIView):
 
 
         return Response('over')
+
+        
+class Test3View(APIView):
+    def get(self,request):
+        return Response('only test')
