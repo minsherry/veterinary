@@ -2,9 +2,9 @@ from django.contrib import admin
 from .models import *
 
 # Register your models here.
-class CustomerAdmin(admin.ModelAdmin):
+class OwnerAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'phone', 'email', 'birth_date')
-admin.site.register(Customer, CustomerAdmin)
+admin.site.register(Owner, OwnerAdmin)
 
 class HospitalAdmin(admin.ModelAdmin):
     list_display = ('name', 'address')

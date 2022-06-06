@@ -106,7 +106,7 @@ class Test2View(APIView):
 
 
         #判斷主人
-        owner_cnt = Customer.objects.all().count()
+        owner_cnt = Owner.objects.all().count()
         print(owner_cnt)
         if owner_cnt == 0:
             return Response('沒有主人可選')
@@ -115,7 +115,7 @@ class Test2View(APIView):
         while True:
             id = random.randint(1,owner_cnt)
             try:
-                owner = Customer.objects.get(id = id)
+                owner = Owner.objects.get(id = id)
                 break
             except:
                 pass

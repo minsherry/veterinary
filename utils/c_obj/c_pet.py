@@ -8,14 +8,14 @@ faker = Faker('zh-TW')
 print("建造 寵物")
 
 #判斷主人
-owner_cnt = Customer.objects.all().count()
+owner_cnt = Owner.objects.all().count()
 if owner_cnt == 0:
     print('沒有主人')
 else:
     while True:
         id = random.randint(1,owner_cnt)
         try:
-            owner = Customer.objects.get(id = id)
+            owner = Owner.objects.get(id = id)
             break
         except:
             pass

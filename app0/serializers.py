@@ -2,12 +2,12 @@ from rest_framework import serializers
 
 from .models import *
 
-class CustomerSerializer(serializers.ModelSerializer):
+class OwnerSerializer(serializers.ModelSerializer):
     '''
     顧客驗證
     '''
     class Meta:
-        model = Customer
+        model = Owner
         fields = ('__all__')
 
 class PetSerializer(serializers.ModelSerializer):
@@ -23,7 +23,7 @@ class PetSerializer(serializers.ModelSerializer):
 
 #     class OwnerSerializer(serializers.ModelSerializer):
 #         class Meta:
-#             model = Customer
+#             model = Owner
 #             fields = ('__all__')
     
 #     owner = OwnerSerializer()

@@ -15,7 +15,7 @@ for i in range(10):
         ph_no.append(random.randint(0,9))
     ph = ''.join(str(e) for e in ph_no)
 
-    Customer.objects.create(
+    Owner.objects.create(
         first_name = faker.first_name(),
         last_name = faker.last_name(),
         birth_date = datetime.datetime.strptime(faker.date(), "%Y-%m-%d"),

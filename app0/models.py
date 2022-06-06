@@ -6,13 +6,13 @@ from tkinter import CASCADE
 # Create your models here.
 
 
-class Customer(models.Model):
+class Owner(models.Model):
     '''
     顧客
     '''
     first_name = models.CharField(max_length = 12, verbose_name = '名字')
     last_name = models.CharField(max_length = 8, verbose_name = '姓氏')
-    phone = models.CharField(max_length = 10, verbose_name = '手機號碼')
+    phone = models.CharField(max_length = 10, unique = True, verbose_name = '手機號碼')
     birth_date = models.DateField(verbose_name = '生日')
     address = models.CharField(max_length = 80, verbose_name = '地址')
     email = models.EmailField(max_length = 255, verbose_name = '電子信箱')
@@ -23,6 +23,7 @@ class Hospital(models.Model):
     獸醫院
     '''
     name = models.CharField(max_length = 100, verbose_name = '醫院名')
+    phone = models.CharField(max_length = 10, unique = True, verbose_name = '電話號碼')
     address = models.CharField(max_length = 200, verbose_name = '地址')
 
 
@@ -32,7 +33,7 @@ class Employee(models.Model):
     '''
     first_name = models.CharField(max_length = 12, verbose_name = '名字')
     last_name = models.CharField(max_length = 8, verbose_name = '姓氏')
-    phone = models.CharField(max_length = 10, verbose_name = '手機號碼')
+    phone = models.CharField(max_length = 10, unique = True, verbose_name = '手機號碼')
     birth_date = models.DateField(verbose_name = '出生年月日')
     address = models.CharField(max_length = 80, verbose_name = '地址')
     email = models.EmailField(max_length = 255, verbose_name = '電子信箱')
@@ -68,9 +69,10 @@ class Pet(models.Model):
     '''
     寵物
     '''
-    name = models.CharField(max_length = 200, verbose_name = '名字')
+    ID = models.IntegerField(primary_key = True, verbose_name = '晶片號碼', help_text = '晶片號碼是全數字')
+    name = models.CharField(max_length = 100, verbose_name = '名字')
     nickname = models.CharField(max_length = 10, verbose_name = '匿稱')
-    owner = models.ForeignKey(Customer, on_delete = models.DO_NOTHING, related_name = 'pets', verbose_name = '主人')
+    owner = models.ForeignKey(Owner, on_delete = models.DO_NOTHING, related_name = 'pets', verbose_name = '主人')
     GENDER = [
         (0, 'female'),
         (1, 'male')

@@ -40,12 +40,12 @@ class IGC1View(APIView):
     def post(self, request):
         print(request.data)
         data = request.data
-        serializer = CustomerSerializer(data = data)
+        serializer = OwnerSerializer(data = data)
         if not serializer.is_valid():
             res = {'message': '驗證沒過'}
             return Response(res)
         data = serializer.validated_data
-        customer = Customer.objects.create(**data)
+        owner = Owner.objects.create(**data)
         res = {'message': '創建成功'}
         return Response(res)
 
@@ -56,12 +56,12 @@ class IGC2View(APIView):
     def post(self, request):
         print(request.data)
         data = request.data
-        serializer = CustomerSerializer(data = data)
+        serializer = OwnerSerializer(data = data)
         if not serializer.is_valid():
             res = {'message': '驗證沒過'}
             return Response(res)
         data = serializer.validated_data
-        pet_owner, created = Customer.objects.get_or_create(
+        pet_owner, created = Owner.objects.get_or_create(
 
         )
         pet = Pet.objects.create(
