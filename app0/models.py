@@ -1,14 +1,14 @@
+
+from django.contrib.auth.models import AbstractUser
+from django.db import models
 from datetime import datetime, timedelta
 
-from django.db import models
-from tkinter import CASCADE
 
 # Create your models here.
 
-
 class Owner(models.Model):
     '''
-    顧客
+    主人
     '''
     first_name = models.CharField(max_length = 12, verbose_name = '名字')
     last_name = models.CharField(max_length = 8, verbose_name = '姓氏')
@@ -16,6 +16,14 @@ class Owner(models.Model):
     birth_date = models.DateField(verbose_name = '生日')
     address = models.CharField(max_length = 80, verbose_name = '地址')
     email = models.EmailField(max_length = 255, verbose_name = '電子信箱')
+
+    @property
+    def full_name_zh (self):
+        return ("%s%s" %(self.last_name, self.first_name))
+
+    @property
+    def full_name_en (self):
+        return ("%s %s" %(self.first_name, self.last_name))
 
 
 class Hospital(models.Model):
@@ -33,10 +41,11 @@ class Employee(models.Model):
     '''
     first_name = models.CharField(max_length = 12, verbose_name = '名字')
     last_name = models.CharField(max_length = 8, verbose_name = '姓氏')
+    email = models.EmailField(max_length = 255, verbose_name = '電子信箱')
+    
     phone = models.CharField(max_length = 10, unique = True, verbose_name = '手機號碼')
     birth_date = models.DateField(verbose_name = '出生年月日')
     address = models.CharField(max_length = 80, verbose_name = '地址')
-    email = models.EmailField(max_length = 255, verbose_name = '電子信箱')
     JOB_CHOICES = [
         (0, '獸醫'),
         (1, '獸醫助理'),
@@ -118,36 +127,6 @@ class Contract(models.Model):
         聯合主鍵
         '''
         unique_together = ('sign_date', 'employee')
-
-
-# class ScheduleTime(models.Model):
-#     '''
-#     上班時間
-#     預設不會工作超過24小時
-#     被
-#     '''
-#     start_work = models.DateTimeField(verbose_name = '上班時間', help_text = '只記錄幾點幾分, 除了隔一天(1/2) 其他年月日都沒有意義')
-#     get_off = models.DateTimeField(verbose_name = '下班時間', help_text = '只記錄幾點幾分, 除了隔一天(1/2) 其他年月日都沒有意義')
-#     # start_work = models.CharField(max_length = 4, verbose_name = '上班幾點幾分', help_text = '前兩位數為幾點 後兩位數為幾分')
-#     # get_off = models.CharField(max_length = 4, verbose_name = '下班幾點幾分', help_text = '前兩位數為幾點 後兩位數為幾分')
-
-#     class Meta:
-#         '''
-#         聯合主鍵
-#         '''
-#         unique_together = ('start_work', 'get_off')
-    
-#     #可以用 @property 來建立一個唯獨的def來讀取工作時間
-#     # @property
-#     # def get_work_time(self):
-#     #     '''
-#     #     工作時數
-#     #     '''        
-#     #     start = datetime.strptime(self.start_work, '%H%M')
-#     #     end = datetime.strptime(self.get_off, '%H%M')
-#     #     if start > end:
-#     #         end += timedelta(days = 1)
-#     #     print(f'開始時間: {start} 結束時間: {end}')
 
 
 class Schedule(models.Model):

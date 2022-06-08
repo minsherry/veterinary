@@ -9,6 +9,11 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.core import serializers
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
+from django import forms
+from django.contrib.sessions.models import Session
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -19,6 +24,7 @@ from faker import Faker
 from .models import *
 from app0.models import *
 from .serializers import *
+from test import *
 
 # Create your views here.
 
@@ -162,3 +168,75 @@ class Test2View(APIView):
 class Test3View(APIView):
     def get(self,request):
         return Response('only test')
+
+
+def set_c(request):
+    response = HttpResponse('Set your lucky_number as 8')
+    response.set_cookie('sessionid', 'lcdp9xx6vjtrrohy7bigr54lrxxhakmo')
+    return response
+
+
+def get_c(request):
+    if 'lucky_number' in request.COOKIES:
+        return HttpResponse('Your lucky_number is {0}'.format(request.COOKIES['lucky_number']))
+    else:
+        return HttpResponse('No cookies.') 
+
+def test3(request):
+    response = HttpResponse('test set response')
+    response.headers['test'] = 'you find me'
+    return response
+
+
+def test4(request):
+    payload = json.dumps({
+        'msg': 'hi'
+    })
+    response = requests.request('GET',
+        'http://10.66.200.52:9527/testapp/test3/',
+        headers = {'Content-Type': 'application/json'},
+        data = payload,
+    )
+    if response.status_code != 200:
+        return HttpResponse('not 200')
+
+    # response = json.loads(response.text)
+
+    # response = HttpResponse('test set response')
+    # response.headers['test'] = 'test'
+    return HttpResponse(response.headers['test'])
+
+
+class Count(object):
+    num = 0
+    def count():
+        Count.num += 1
+        return Count.num
+
+
+def test5(request):
+    for i in range(10):
+        # 電子郵件內容樣板
+        num = Count.count()
+        email_template = render_to_string(
+            'signup.html',
+            {"data": f"這是第{num}封信"}
+        )
+        email = EmailMessage(
+            f'成功通知信{num}',  # 電子郵件標題
+            email_template,  # 電子郵件內容
+            settings.EMAIL_HOST_USER,  # 寄件者
+            ['xoxakes320@krunsea.com']  # 收件者
+        )
+        email.fail_silently = False
+        email.send()
+        print(num)
+    return HttpResponse('已寄信')
+
+def session_test(request):
+    sid = request.COOKIES['sessionid']
+    s = Session.objects.get(pk=sid)
+    s_info = 'Session ID:' + sid +\
+         '<br>Expire_date:' + str(s.expire_date) + \
+             '<br>Data:' + str(s.get_decoded())
+    return HttpResponse(s_info)

@@ -13,6 +13,7 @@ class CodeMessageEnum(Enum):
     ADD_EMPLOYEE_SUCCESS = (711, '員工註冊成功', not IS_ERROR)
     ADD_EMPLOYEE_FAILED_BY_FORMAT = (811, '格式不符', IS_ERROR)
     ADD_EMPLOYEE_FAILED_BY_HOSPITAL_ID_NOT_EXIST = (812, '醫院ID不存在', IS_ERROR)
+    '''
     = (723, '取得醫院資訊', not IS_ERROR)
     = (846, '沒有醫院資訊', IS_ERROR)
     = (712, '排班成功', not IS_ERROR)
@@ -73,3 +74,4 @@ class CodeMessageEnum(Enum):
     = (843, '美容助理ID不存在', IS_ERROR)
     = (844, '助理ID填入的ID的職業並不是美容助理', IS_ERROR)
     = (845, '美容項目ID不存在', IS_ERROR)
+    '''
