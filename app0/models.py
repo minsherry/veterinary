@@ -35,13 +35,14 @@ class Hospital(models.Model):
     address = models.CharField(max_length = 200, verbose_name = '地址')
 
 
-class Employee(models.Model):
+class Employee(AbstractUser):
     '''
     員工(目前包含醫生.助理)
     '''
-    first_name = models.CharField(max_length = 12, verbose_name = '名字')
-    last_name = models.CharField(max_length = 8, verbose_name = '姓氏')
-    email = models.EmailField(max_length = 255, verbose_name = '電子信箱')
+    #以下已在 AbstractUser
+    # first_name = models.CharField(max_length = 12, verbose_name = '名字')
+    # last_name = models.CharField(max_length = 8, verbose_name = '姓氏')
+    # email = models.EmailField(max_length = 255, verbose_name = '電子信箱')
     
     phone = models.CharField(max_length = 10, unique = True, verbose_name = '手機號碼')
     birth_date = models.DateField(verbose_name = '出生年月日')

@@ -12,4 +12,7 @@ urlpatterns = [
     path('test4/', test4),
     path('test5/', test5),
     path('sessiontest/', session_test),
+    path('test6/', Test6View.as_view()),
+    path('test7/', test7),
+    path('test8/', test8),
 ]

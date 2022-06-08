@@ -6,7 +6,7 @@ import random
 from datetime import datetime
 
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import Http404, HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.core import serializers
 from django.core.mail import EmailMessage
@@ -182,12 +182,13 @@ def get_c(request):
     else:
         return HttpResponse('No cookies.') 
 
+#測試在 response 的 headers 裡面添加東西
 def test3(request):
     response = HttpResponse('test set response')
     response.headers['test'] = 'you find me'
     return response
 
-
+#測試 讀取 response
 def test4(request):
     payload = json.dumps({
         'msg': 'hi'
@@ -199,11 +200,6 @@ def test4(request):
     )
     if response.status_code != 200:
         return HttpResponse('not 200')
-
-    # response = json.loads(response.text)
-
-    # response = HttpResponse('test set response')
-    # response.headers['test'] = 'test'
     return HttpResponse(response.headers['test'])
 
 
@@ -240,3 +236,19 @@ def session_test(request):
          '<br>Expire_date:' + str(s.expire_date) + \
              '<br>Data:' + str(s.get_decoded())
     return HttpResponse(s_info)
+
+
+class Test6View(APIView):
+    def get(self,request):
+        return Response(status = 404)
+
+
+def test7(request):
+    response = HttpResponseRedirect('/testapp/test8')
+    response.headers['data'] = 'canCarry'
+    return response
+
+def test8(request):
+    # request.headers['data'] = 'whatThe'
+    return HttpResponse(f'讀取到的資料是\
+        <br><br><br><br><br>{request.headers.keys()}')
