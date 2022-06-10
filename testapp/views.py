@@ -1,3 +1,6 @@
+
+from doctest import testfile
+from tabnanny import verbose
 import requests
 import json
 import time
@@ -12,7 +15,6 @@ from django.core import serializers
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
-from django import forms
 from django.contrib.sessions.models import Session
 
 from rest_framework.views import APIView
@@ -25,6 +27,8 @@ from .models import *
 from app0.models import *
 from .serializers import *
 from test import *
+from .forms import *
+from templates import *
 
 # Create your views here.
 
@@ -244,11 +248,22 @@ class Test6View(APIView):
 
 
 def test7(request):
-    response = HttpResponseRedirect('/testapp/test8')
-    response.headers['data'] = 'canCarry'
-    return response
+    return redirect('/testapp/test8/')
 
 def test8(request):
     # request.headers['data'] = 'whatThe'
     return HttpResponse(f'讀取到的資料是\
         <br><br><br><br><br>{request.headers.keys()}')
+
+def test9(request):
+    if request.method == 'POST':
+        form = TestForm(request.POST)
+
+        if form.is_valid:
+            print(type(form["food"]))        
+            return HttpResponse(f'有收到<br><br><br>{(form)}')
+    
+    else:
+        form = TestForm()
+
+    return render(request, 'testform.html', {'form': form})

@@ -15,4 +15,5 @@ urlpatterns = [
     path('test6/', Test6View.as_view()),
     path('test7/', test7),
     path('test8/', test8),
+    path('test9/', test9, name = 'test9'),
 ]

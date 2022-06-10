@@ -44,9 +44,9 @@ class Employee(AbstractUser):
     # last_name = models.CharField(max_length = 8, verbose_name = '姓氏')
     # email = models.EmailField(max_length = 255, verbose_name = '電子信箱')
     
-    phone = models.CharField(max_length = 10, unique = True, verbose_name = '手機號碼')
-    birth_date = models.DateField(verbose_name = '出生年月日')
-    address = models.CharField(max_length = 80, verbose_name = '地址')
+    phone = models.CharField(blank = True, max_length = 10, unique = True, verbose_name = '手機號碼')
+    birth_date = models.DateField(blank = True, verbose_name = '出生年月日')
+    address = models.CharField(blank = True, max_length = 80, verbose_name = '地址')
     JOB_CHOICES = [
         (0, '獸醫'),
         (1, '獸醫助理'),
