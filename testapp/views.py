@@ -1,6 +1,4 @@
 
-from doctest import testfile
-from tabnanny import verbose
 import requests
 import json
 import time
@@ -233,6 +231,7 @@ def test5(request):
         print(num)
     return HttpResponse('已寄信')
 
+
 def session_test(request):
     sid = request.COOKIES['sessionid']
     s = Session.objects.get(pk=sid)
@@ -250,10 +249,12 @@ class Test6View(APIView):
 def test7(request):
     return redirect('/testapp/test8/')
 
+
 def test8(request):
     # request.headers['data'] = 'whatThe'
     return HttpResponse(f'讀取到的資料是\
         <br><br><br><br><br>{request.headers.keys()}')
+
 
 def test9(request):
     if request.method == 'POST':
@@ -265,5 +266,7 @@ def test9(request):
     
     else:
         form = TestForm()
-
+        a=[1,2,3]
+        a.index(2)
     return render(request, 'testform.html', {'form': form})
+
